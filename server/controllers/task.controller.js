@@ -24,7 +24,9 @@ export const getTasks = async (req, res) => {
 export const createTask = async (req, res) => {
   try {
     const { title, description, category } = req.body;
-
+    if(!title || !description || !category){
+        res.status(400).json({message: "Fill all required fields."})
+    }
     const task = new Task({
       userId: req.user.userId,
       title,
